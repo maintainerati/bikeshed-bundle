@@ -1,0 +1,56 @@
+$dimensions: 16 24 32 48 64 96 128 256 300;
+
+$bikeshed-light: rgba(251,252,250,1);
+$bikeshed-medium-light: rgba(237,244,230,1);
+$bikeshed: rgba(218,234,201,1);
+$bikeshed-medium-dark: rgba(185,212,158,1);
+$bikeshed-dark: rgba(143,179,106,1);
+
+$custom-colors: (
+    'bikeshed-light': $bikeshed-light,
+    'bikeshed-medium-light': $bikeshed-medium-light,
+    'bikeshed': $bikeshed,
+    'bikeshed-medium-dark': $bikeshed-medium-dark,
+    'bikeshed-dark': $bikeshed-dark,
+);
+
+$grey-darker:  #363636;
+$grey-dark:    #373a3c;
+$grey:         #55595c;
+$grey-light:   #818a91;
+$grey-lighter: #d9dee2;
+
+$orange:       #f0ad4e;
+$yellow:       #ffd500;
+$green:        #02B875;
+$blue:         #45b2d3;
+$red:          #d9534f;
+
+$content-heading-color: $bikeshed-dark !default;
+
+$link: $bikeshed-dark !default;
+$primary: $blue !default;
+$danger: $orange;
+
+$subtitle-color: $grey;
+
+$family-heading: "Raleway", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+
+$body-size: 15px;
+
+$family-sans-serif: 'Montserrat', sans-serif;
+$family-serif:  'Montserrat', serif;
+
+$navbar-height: 5rem;
+$navbar-item-hover-color: $link;
+$navbar-item-hover-background-color: transparent;
+$navbar-item-active-color: $link;
+$navbar-item-active-background-color: transparent;
+
+$navbar-dropdown-item-hover-color: $link;
+$navbar-dropdown-item-hover-background-color: transparent;
+$navbar-dropdown-item-active-color: $link;
+$navbar-dropdown-item-active-background-color: transparent;
+
+$bulmaswatch-import-font: false !default;
+
