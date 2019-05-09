@@ -11,8 +11,7 @@ final class TwigPathsPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $resourcesPath = \dirname(__DIR__, 2) . '/Resources';
-        $publicPath = $resourcesPath . '/public';
+        $publicPath = \dirname(__DIR__, 6) . '/public';
         $templatePath = \dirname(__DIR__, 4) . '/bikeshed/templates';
 
         $filesystem = $container->getDefinition('twig.loader.native_filesystem');
