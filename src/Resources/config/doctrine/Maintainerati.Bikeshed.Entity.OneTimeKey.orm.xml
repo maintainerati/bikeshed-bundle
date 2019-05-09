@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Maintainerati\Bikeshed\Entity\OneTimeKey"
+            repository-class="Maintainerati\Bikeshed\Repository\OneTimeKeyRepository"
+            table="one_time_key">
+
+        <id name="id" type="uuid" column="id"><generator strategy="CUSTOM"/></id>
+
+        <field name="oneTimeKey" type="uuid" column="one_time_key" precision="0" scale="0" unique="true"/>
+        <field name="validUntil" type="date_immutable" column="valid_until" precision="0" scale="0"/>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="onPrePersist"/>
+        </lifecycle-callbacks>
+
+    </entity>
+</doctrine-mapping>

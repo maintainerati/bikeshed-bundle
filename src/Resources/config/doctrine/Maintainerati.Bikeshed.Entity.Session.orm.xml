@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Maintainerati\Bikeshed\Entity\Session"
+            repository-class="Maintainerati\Bikeshed\Repository\SessionRepository"
+            table="session">
+
+        <id name="id" type="uuid" column="id"><generator strategy="CUSTOM"/></id>
+
+        <field name="startTime" type="time" column="start_time" precision="0" scale="0" nullable="false"/>
+        <field name="endTime" type="time" column="end_time" precision="0" scale="0" nullable="false"/>
+
+        <one-to-many field="spaces"
+                     target-entity="Maintainerati\Bikeshed\Entity\Space"
+                     mapped-by="session"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-remove/>
+                <cascade-persist/>
+            </cascade>
+            <order-by>
+                <order-by-field name="name" direction="ASC"/>
+            </order-by>
+        </one-to-many>
+
+        <many-to-one field="event" target-entity="Maintainerati\Bikeshed\Entity\Event" inversed-by="sessions">
+            <join-columns>
+                <join-column name="event_id" referenced-column-name="id" on-delete="CASCADE" nullable="false"/>
+            </join-columns>
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="true" autoconfigure="true" public="false" />
+
+        <!-- Assets-->
+        <service id="Maintainerati\Bikeshed\Asset\TagRenderer" />
+        <service id="Maintainerati\Bikeshed\Util\WebLink" />
+
+        <!-- Commands -->
+        <service id="Maintainerati\Bikeshed\Command\AttendeeAddCommand" >
+            <tag name="console.command" command="bikeshed:attendee-add"/>
+        </service>
+        <service id="Maintainerati\Bikeshed\Command\AttendeeResetCommand" >
+            <tag name="console.command" command="bikeshed:attendee-reset"/>
+        </service>
+        <service id="Maintainerati\Bikeshed\Command\OneTimeKeyGenerateCommand" >
+            <tag name="console.command" command="bikeshed:otk-generate"/>
+        </service>
+        <service id="Maintainerati\Bikeshed\Command\OneTimeKeyListCommand" >
+            <tag name="console.command" command="bikeshed:otk-list"/>
+        </service>
+        <service id="Maintainerati\Bikeshed\Command\OneTimeKeyFlushCommand" >
+            <tag name="console.command" command="bikeshed:otk-flush"/>
+        </service>
+
+        <!-- Controllers -->
+        <service id="Maintainerati\Bikeshed\Controller\Admin\EditorController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\Admin\OneTimeKeysController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\AsyncFormController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\FocusController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\HomepageController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\NoteController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\ReFocusController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\RegistrationController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\SecurityController" >
+            <tag name="controller.service_arguments" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Controller\SpaceController" >
+            <tag name="controller.service_arguments" />
+        </service>
+
+        <!-- DTO -->
+        <service id="Maintainerati\Bikeshed\DataTransfer\FocusFactory" />
+
+        <!-- Doctrine-->
+        <service id="Maintainerati\Bikeshed\Doctrine\DQL\Date" />
+        <service id="Maintainerati\Bikeshed\Doctrine\DQL\Random" />
+        <service id="Maintainerati\Bikeshed\Doctrine\Hydrator\ColumnHydrator" />
+        <service id="Maintainerati\Bikeshed\Doctrine\Hydrator\KeyPairHydrator" />
+
+        <service id="Maintainerati\Bikeshed\DataFixtures\BikeshedFixtures" >
+            <tag name="doctrine.fixture.orm" />
+        </service>
+
+        <service id="Maintainerati\Bikeshed\EventListener\NoteUpdateListener">
+            <argument key="$outputPath" >%kernel.project_dir%/var/notes</argument>
+            <tag name="doctrine.orm.entity_listener"
+                 event="postUpdate"
+                 lazy="true"
+                 entity="Maintainerati\Bikeshed\Entity\Note"
+            />
+        </service>
+
+        <!-- Form Types -->
+        <service id="Maintainerati\Bikeshed\Form\RegistrationFormType" >
+            <argument type="service" id="Maintainerati\Bikeshed\Validator\Constraints\ValidOneTimeKey" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Form\FocusFormType" />
+        <service id="Maintainerati\Bikeshed\Form\EventEditFormType" />
+        <service id="Maintainerati\Bikeshed\Form\SessionEditFormType" />
+        <service id="Maintainerati\Bikeshed\Form\SpaceEditFormType" />
+        <service id="Maintainerati\Bikeshed\Form\NoteEditFormType" />
+
+        <!-- Form Loaders -->
+        <service id="Maintainerati\Bikeshed\Form\Loader\FocusChoiceLoader" />
+
+        <!-- Form Handlers -->
+        <service id="Maintainerati\Bikeshed\Form\Handler\HandlerFactory" />
+        <service id="Maintainerati\Bikeshed\Form\Handler\FocusFormHandler" />
+        <service id="Maintainerati\Bikeshed\Form\Handler\RegistrationFormHandler" />
+        <service id="Maintainerati\Bikeshed\Form\Handler\EventEditFormHandler" />
+        <service id="Maintainerati\Bikeshed\Form\Handler\SessionEditFormHandler" />
+        <service id="Maintainerati\Bikeshed\Form\Handler\SpaceEditFormHandler" />
+        <service id="Maintainerati\Bikeshed\Form\Handler\NoteEditFormHandler" />
+
+        <!-- HTML Purify -->
+        <service id="HTMLPurifier" class="HTMLPurifier" >
+            <argument type="service" id="bikeshed.html_purifier.config" />
+        </service>
+        <service id="bikeshed.html_purifier.config" class="HTMLPurifier_Config" >
+            <factory class="HTMLPurifier_Config" method="createDefault"/>
+        </service>
+
+        <!-- Markdown -->
+        <service id="Maintainerati\Bikeshed\Markdown\Markdown" />
+
+        <!-- Menus -->
+        <service id="Maintainerati\Bikeshed\Menu\ConfigureMenuEvent" />
+        <service id="Maintainerati\Bikeshed\Menu\AdminMenuBuilder" >
+            <argument type="service" id="knp_menu.factory" />
+            <tag name="knp_menu.menu_builder" method="createMenu" alias="bikeshed_admin" />
+        </service>
+        <service id="Maintainerati\Bikeshed\Menu\MenuBuilder" >
+            <argument type="service" id="knp_menu.factory" />
+            <tag name="knp_menu.menu_builder" method="createMenu" alias="bikeshed_main" />
+        </service>
+
+        <!-- Repositories -->
+        <service id="Maintainerati\Bikeshed\Repository\AttendeeRepository" />
+        <service id="Maintainerati\Bikeshed\Repository\EventRepository" />
+        <service id="Maintainerati\Bikeshed\Repository\NoteRepository" />
+        <service id="Maintainerati\Bikeshed\Repository\SessionRepository" />
+        <service id="Maintainerati\Bikeshed\Repository\SpaceRepository" />
+        <service id="Maintainerati\Bikeshed\Repository\OneTimeKeyRepository" />
+
+        <!-- Responders -->
+        <service id="Maintainerati\Bikeshed\Responder\AsyncFormResponder" />
+
+        <!-- Routing -->
+        <service id="Maintainerati\Bikeshed\Routing\BikeshedLoader" >
+            <tag name="routing.loader" />
+        </service>
+
+        <!-- Security -->
+        <service id="Maintainerati\Bikeshed\Security\FormAuthenticator" />
+
+        <!-- Transformers -->
+        <service id="Maintainerati\Bikeshed\Transformer\ButtonTransformer" />
+
+        <!-- Twig -->
+        <service id="Maintainerati\Bikeshed\Twig\Extension\CountryExtension" />
+        <service id="Maintainerati\Bikeshed\Twig\Extension\EncoreExtension" >
+            <tag name="twig.extension" priority="-1024" />
+        </service>
+
+        <!-- Utils -->
+        <service id="Maintainerati\Bikeshed\Util\GitHubEmoji" />
+        <service id="Maintainerati\Bikeshed\Util\LoremIpsum" />
+        <service id="Maintainerati\Bikeshed\Responder\HomepageResponder" />
+
+        <!-- Validator -->
+        <service id="Maintainerati\Bikeshed\Validator\Constraints\ValidOneTimeKey" />
+        <service id="Maintainerati\Bikeshed\Validator\Constraints\ValidOneTimeKeyValidator"  >
+            <tag name="validator.constraint_validator" alias="Maintainerati\Bikeshed\Validator\Constraints\ValidOneTimeKeyValidator" />
+        </service>
+    </services>
+
+</container>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Maintainerati\Bikeshed\Entity\Space"
+            repository-class="Maintainerati\Bikeshed\Repository\SpaceRepository"
+            table="space">
+
+        <id name="id" type="uuid" column="id"><generator strategy="CUSTOM"/></id>
+
+        <field name="name" column="name" length="255" precision="0" scale="0"/>
+        <field name="topic" column="topic" length="255" precision="0" scale="0"/>
+
+        <one-to-many field="notes"
+                     target-entity="Maintainerati\Bikeshed\Entity\Note"
+                     mapped-by="space"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-remove/>
+                <cascade-persist/>
+            </cascade>
+            <order-by>
+                <order-by-field name="date"/>
+            </order-by>
+        </one-to-many>
+
+        <many-to-one field="session" target-entity="Maintainerati\Bikeshed\Entity\Session" inversed-by="spaces">
+            <join-columns>
+                <join-column name="session_id" referenced-column-name="id" on-delete="CASCADE" nullable="false"/>
+            </join-columns>
+        </many-to-one>
+
+        <many-to-many field="attendees"
+                      target-entity="Maintainerati\Bikeshed\Entity\Attendee"
+                      mapped-by="spaces"/>
+
+    </entity>
+</doctrine-mapping>
