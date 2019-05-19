@@ -1,0 +1,66 @@
+{
+    "name": "maintainerati/bikeshed-bundle",
+    "description": "Symfony bundle for the Maintainerati Bikeshed Open Space note taker",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gawain Lynch",
+            "email": "gawain.lynch@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.2",
+        "doctrine/doctrine-bundle": "^1.6",
+        "erusev/parsedown": "^1.7",
+        "hostnet/form-handler-bundle": "^1.6",
+        "knplabs/knp-menu-bundle": "^2.2",
+        "limenius/liform-bundle": "^0.13.0",
+        "maintainerati/bikeshed": "^0.1",
+        "nelmio/cors-bundle": "^1.5",
+        "rollerworks/password-strength-bundle": "^2.0",
+        "symfony/dependency-injection": "^4.3",
+        "symfony/framework-bundle": "^4.3",
+        "symfony/security-bundle": "^4.3",
+        "symfony/swiftmailer-bundle": "^3.2",
+        "symfony/twig-bundle": "^4.3",
+        "symfony/webpack-encore-bundle": "^1.5",
+        "twig/markdown-extension": "^1.0",
+        "white-october/pagerfanta-bundle": "^1.2"
+    },
+    "require-dev": {
+        "camelot/coding-style": "^2.0",
+        "composer/composer": "^1.8",
+        "doctrine/doctrine-fixtures-bundle": "^3.1",
+        "doctrine/doctrine-migrations-bundle": "^2.0",
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "phpunit/phpunit": "^8.1",
+        "psalm/plugin-phpunit": "^0.5.5",
+        "symfony/debug-bundle": "^4.3",
+        "symfony/http-client": "^4.3",
+        "symfony/test-pack": "^1.0",
+        "vimeo/psalm": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Maintainerati\\Bikeshed\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Maintainerati\\Bikeshed\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "lint": "vendor/bin/php-cs-fixer fix --show-progress=dots -v",
+        "static": "vendor/bin/psalm --find-dead-code",
+        "test": "vendor/bin/phpunit",
+        "coverage": "vendor/bin/phpunit --coverage-text",
+        "suite": [
+            "@lint",
+            "@static",
+            "@coverage"
+        ]
+    }
+}
